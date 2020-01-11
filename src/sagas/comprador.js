@@ -12,8 +12,7 @@ import {
 
 
 export function* obterComprador(params) {
-    const uri = `${API_COMPRADOR}arquivos/delivery/comanda/
-    ${'params.data.pedidoId'}/usuario/${'params.data.matricula'}`;
+    const uri = `${API_COMPRADOR}/comprador/cpf/comanda/${'params.data.cpf'}`;
 
     try {
         const data = yield call(fetch, uri);
