@@ -23,6 +23,7 @@ class Simulador extends Component {
             valorJuros: 5.7525,
             qtoParcelas: 10,
             dataCompra: '01/01/2020',
+            cpfComprador: undefined,
             salvarSimulacao: false
         }
     }
@@ -35,33 +36,39 @@ class Simulador extends Component {
     }
 
     validaDadosSimulador = () => {
-        const dados = {...this.state};
 
-        if(!this.valorTotalEhValidos(dados.valorTotal)) {
+        if(!this.valorTotalEhValidos()) {
             return this.swalErro({ 
                 title: 'Valor total inválido', 
                 text: 'Valor total está inválido, digite um valor valido!' 
             });
         }
 
-        if(!this.valorJurosEhValidos(dados.valorTotal)) {
+        if(!this.valorJurosEhValidos()) {
             return this.swalErro({ 
                 title: 'Valor de juros inválido', 
                 text: 'Valor de juros está inválido, digite um valor valido!' 
             });
         }
 
-        if(!this.quantidadeParcelasEhValidos(dados.valorTotal)) {
+        if(!this.quantidadeParcelasEhValidos()) {
             return this.swalErro({ 
                 title: 'Quantidade de parecelas inválido', 
                 text: 'Quantidade de parecelas está inválido, digite um valor valido!' 
             });
         }
 
-        if(!this.dataCompraEhValidos(dados.valorTotal)) {
+        if(!this.dataCompraEhValidos()) {
             return this.swalErro({ 
                 title: 'Data da compra inválido', 
                 text: 'Data da compra está inválido, digite um valor valido!' 
+            });
+        }
+
+        if(!this.cpfCompradorEhValidos()) {
+            return this.swalErro({ 
+                title: 'CPF do comprador inválido', 
+                text: 'CPF do comprador está inválido, digite um valor valido!' 
             });
         }
 
@@ -114,6 +121,18 @@ class Simulador extends Component {
            (mes === 6 && dia > 30) ||
            (mes === 9 && dia > 30) ||
            (mes === 11 && dia > 30))
+            return false;
+
+        return true;
+    }
+
+    cpfCompradorEhValidos = () => {
+        const cpfComprador = this.state.cpfComprador;
+
+        if(!this.state.salvarSimulacao)
+            return true;
+
+        if(!cpfComprador || cpfComprador.indexOf('_') > -1)
             return false;
 
         return true;
@@ -224,6 +243,25 @@ class Simulador extends Component {
                                         onChange={() => this.setState({ salvarSimulacao: !this.state.salvarSimulacao }) } />
                                 </Col>
                             </Form.Group>
+                            
+                            { this.state.salvarSimulacao ? 
+                                <Form.Group>
+                                    <Form.Label column sm="12"><b>Cpf do Comprador</b></Form.Label>
+                                    <Col sm="5">
+                                        <InputMask
+                                            type='text'
+                                            maskChar='_'
+                                            alwaysShowMask={true}
+                                            mask={'999.999.999-99'}
+                                            className="text-center form-control form-control-lg"
+                                            onChange={(event) => this.setState({
+                                                cpfComprador: event.target.value
+                                            }) }
+                                        />
+                                    </Col>
+                                </Form.Group>
+                                : null
+                            }
                             
                             <Form.Group>
                                 <Col sm="5">
