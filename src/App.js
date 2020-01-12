@@ -7,9 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Header from './templates/header';
 import Footer from './templates/footer';
-import CompradorIndex from './components/comprador/index';
-import CompradorIndex2 from './components/comprador/index2';
-import CompradorIndex3 from './components/comprador/index3';
+import SimuladorIndex from './components/simulador/index';
+import SimuladorDetalhe from './components/simulador/detalhe';
 
 import store from './store/index';
 
@@ -19,10 +18,8 @@ function App() {
     <Provider store={store}>
       <Header />
         <Router history={hashHistory}>
-          <Route exact={true} path="/" component={CompradorIndex} />
-          <Route exact={true} path="/home1" component={CompradorIndex} />
-          <Route exact={true} path="/home2" component={CompradorIndex2} />
-          <Route exact={true} path="/home3" component={CompradorIndex3} />
+          <Route exact={true} path="/" component={SimuladorIndex} />
+          <Route exact={true} path="/simulador/detalhe" component={SimuladorDetalhe} />
         </Router>
       <Footer />
     </Provider>
