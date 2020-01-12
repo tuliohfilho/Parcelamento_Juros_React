@@ -286,7 +286,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({
-        calcularSimulacao: calcularSimulacao
+        calcularSimulacao
     }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Simulador);

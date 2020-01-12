@@ -43,6 +43,16 @@ class Detalhe extends Component {
         )
     };
 
+    renderParcelas = () => {
+        const parcelas = this.props.simulacao.parcelas;
+
+        return (
+            parcelas.map((parcela, i) => {
+                return this.renderParcela(parcela);
+            })
+        );
+    }
+
     render() {
         return (
             <>
@@ -55,7 +65,7 @@ class Detalhe extends Component {
                     <Row className="mt-5 text-center">
                         <Col md={12} className="text-left"><h4>Dados</h4></Col>
                         <Col md={3}>
-                            <b>Valor Total: </b><br />
+                            <b>Valor Da Compra: </b><br />
                             <NumberFormat 
                                 prefix={'R$ '}
                                 decimalScale={2}
@@ -64,7 +74,7 @@ class Detalhe extends Component {
                                 decimalSeparator={','}
                                 thousandSeparator={'.'} 
                                 fixedDecimalScale={true}
-                                value={this.props.simulacaoForm.valorTotal} 
+                                value={this.props.simulacao.valorCompra} 
                             />
                         </Col>
                         <Col md={3}>
@@ -77,7 +87,7 @@ class Detalhe extends Component {
                                 decimalSeparator={','}
                                 thousandSeparator={'.'} 
                                 fixedDecimalScale={true}
-                                value={this.props.simulacaoForm.valorJuros} 
+                                value={this.props.simulacao.valorJuros} 
                             />
                         </Col>
                         <Col md={3}>
@@ -89,12 +99,12 @@ class Detalhe extends Component {
                                 allowNegative={false}
                                 decimalSeparator={','}
                                 thousandSeparator={'.'} 
-                                value={this.props.simulacaoForm.qtoParcelas} 
+                                value={this.props.simulacao.quantidadeParecelas} 
                             />
                         </Col>
                         <Col md={3}>
                             <b>Data da Compra: </b><br />
-                            {this.props.simulacaoForm.dataCompra}
+                            {this.props.simulacao.dataCompra}
                         </Col>
                     </Row>
                     <Row className="mt-5">
@@ -110,11 +120,7 @@ class Detalhe extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {
-                                this.props.simulacao.parcelas.map((parcela, i) => {
-                                        return this.renderParcela(parcela);
-                                    })
-                                }
+                                {this.renderParcelas()}
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -145,8 +151,7 @@ class Detalhe extends Component {
 
 
 const mapStateToProps = state => ({
-    simulacao: state.reducers.simulador.simulacao,
-    simulacaoForm: state.reducers.simulador.simulacaoForm
+    simulacao: state.reducers.simulador.simulacao
 });
 
 const mapDispatchToProps = dispatch =>

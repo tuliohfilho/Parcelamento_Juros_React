@@ -10,7 +10,7 @@ function Header() {
                 <Navbar.Brand href="/">Fortes</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Nav.Link href="#/">Simulador</Nav.Link>
-                    <Nav.Link href="#/">Histórico</Nav.Link>
+                    <Nav.Link href="#/simulador/hitorico">Histórico</Nav.Link>
                 </Nav>
             </Navbar>
         </>
