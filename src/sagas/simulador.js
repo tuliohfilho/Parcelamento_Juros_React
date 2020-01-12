@@ -10,12 +10,12 @@ import {
 } from '../actions/index';
 
 import {
-    API_COMPRADOR
+    API_PARCELAJENTO_JUROS
 } from '../util';
 
 
 export function* calcularSimulacao(params) {
-    const uri = `${API_COMPRADOR}/simulador`;
+    const uri = `${API_PARCELAJENTO_JUROS}/simulador`;
 
     try {
         const data = yield call(fetch, uri, {
@@ -42,7 +42,7 @@ export function* calcularSimulacao(params) {
 }
 
 export function* buscarHistoricoSimulacoes(payload) {
-    const uri = `${API_COMPRADOR}/simulador/cpf/${payload.data.cpfComprador}`;
+    const uri = `${API_PARCELAJENTO_JUROS}/simulador/cpf/${payload.data.cpfComprador}`;
 
     try {
         const data = yield call(fetch, uri);

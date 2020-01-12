@@ -7,12 +7,12 @@ import {
 } from '../actions/index';
 
 import {
-    API_COMPRADOR
+    API_PARCELAJENTO_JUROS
 } from '../util';
 
 
 export function* obterComprador(params) {
-    const uri = `${API_COMPRADOR}/comprador/cpf/comanda/${'params.data.cpf'}`;
+    const uri = `${API_PARCELAJENTO_JUROS}/comprador/cpf/comanda/${'params.data.cpf'}`;
 
     try {
         const data = yield call(fetch, uri);
