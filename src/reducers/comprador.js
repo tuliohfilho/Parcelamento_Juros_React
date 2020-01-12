@@ -1,7 +1,7 @@
 import {
     OBTER_COMPRADOR,
-    LIMPAR_COMPRADOR,
     OBTER_COMPRADOR_ERRO,
+    LIMPAR_OBTER_COMPRADOR,
     OBTER_COMPRADOR_SUCESSO
 } from '../actions';
 
@@ -19,7 +19,7 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, comprador: undefined, obterCompradorStatus: undefined };
         }
         
-        case LIMPAR_COMPRADOR: {
+        case LIMPAR_OBTER_COMPRADOR: {
             return { ...state, comprador: undefined, obterCompradorStatus: undefined };
         }
 

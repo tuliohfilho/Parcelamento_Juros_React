@@ -1,18 +1,18 @@
 import {
-    SIMULADOR,
-    LIMPAR_SIMULADOR
+    CALCULAR_SIMULACAO,
+    LIMPAR_CALCULAR_SIMULACAO
 } from './index.js';
 
 
-export function simulador(params) {
+export function calcularSimulacao(params) {
     return {
-        type: SIMULADOR,
+        type: CALCULAR_SIMULACAO,
         data: { ...params }
     };
 }
 
 export function limparSimulador() {
     return {
-        type: LIMPAR_SIMULADOR
+        type: LIMPAR_CALCULAR_SIMULACAO
     };
 }

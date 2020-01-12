@@ -1,8 +1,8 @@
 import {
-    SIMULADOR,
-    SIMULADOR_ERRO,
-    LIMPAR_SIMULADOR,
-    SIMULADOR_SUCESSO
+    CALCULAR_SIMULACAO,
+    CALCULAR_SIMULACAO_ERRO,
+    LIMPAR_CALCULAR_SIMULACAO,
+    CALCULAR_SIMULACAO_SUCESSO
 } from '../actions';
 
 import swal from 'sweetalert2';
@@ -11,6 +11,7 @@ import swal from 'sweetalert2';
 const INITIAL_STATE = {
     simulacao: { parecelas: [] },
     simulacoes: undefined,
+    simulacaoForm: undefined,
     simuladorStatus: undefined
 };
 
@@ -18,15 +19,25 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
 
-        case SIMULADOR: {
-            return { ...state, comprador: undefined, simuladorStatus: undefined, simulacao: undefined };
+        case CALCULAR_SIMULACAO: {
+            return {
+                ...state,
+                simulacao: undefined,
+                simuladorStatus: undefined,
+                simulacaoForm: action.data
+            };
         }
         
-        case LIMPAR_SIMULADOR: {
-            return { ...state, comprador: undefined, simuladorStatus: undefined, simulacao: undefined };
+        case LIMPAR_CALCULAR_SIMULACAO: {
+            return {
+                ...state,
+                simulacao: undefined,
+                simulacaoForm: undefined,
+                simuladorStatus: undefined
+             };
         }
 
-        case SIMULADOR_ERRO: {
+        case CALCULAR_SIMULACAO_ERRO: {
             setTimeout(() => {
                 swal({
                     type: 'error',
@@ -35,10 +46,14 @@ export default (state = INITIAL_STATE, action) => {
                     timer: 10000
                 })}, 500)
 
-            return { ...state, comprador: undefined, simuladorStatus: false, simulacao: undefined };
+            return {
+                ...state,
+                simulacao: undefined,
+                simuladorStatus: false
+            };
         }
 
-        case SIMULADOR_SUCESSO: {
+        case CALCULAR_SIMULACAO_SUCESSO: {
             setTimeout(() =>
                 swal({
                     type: 'success',
@@ -49,7 +64,11 @@ export default (state = INITIAL_STATE, action) => {
 
                 window.location.href = "#/simulador/detalhe";
 
-            return { ...state, comprador: action.payload, simuladorStatus: true, simulacao: action.payload };
+            return {
+                ...state, 
+                simuladorStatus: true,
+                simulacao: action.payload
+            };
         }
 
         default:

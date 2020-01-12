@@ -1,9 +1,9 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
 
 import {
-    SIMULADOR,
-    SIMULADOR_ERRO,
-    SIMULADOR_SUCESSO
+    CALCULAR_SIMULACAO,
+    CALCULAR_SIMULACAO_ERRO,
+    CALCULAR_SIMULACAO_SUCESSO
 } from '../actions/index';
 
 import {
@@ -11,7 +11,7 @@ import {
 } from '../util';
 
 
-export function* simulador(params) {
+export function* calcularSimulacao(params) {
     const uri = `${API_COMPRADOR}/simulador`;
 
     try {
@@ -32,12 +32,12 @@ export function* simulador(params) {
 
         const jsonData = yield call([data, 'json'])
 
-        yield put({ type: SIMULADOR_SUCESSO, payload: jsonData });
+        yield put({ type: CALCULAR_SIMULACAO_SUCESSO, payload: jsonData });
     } catch (error) {
-        yield put({ type: SIMULADOR_ERRO, payload: error });
+        yield put({ type: CALCULAR_SIMULACAO_ERRO, payload: error });
     }
 }
 
-export function* watchSimulador() {
-    yield takeEvery(SIMULADOR, simulador);
+export function* watchCalcularSimulacao() {
+    yield takeEvery(CALCULAR_SIMULACAO, calcularSimulacao);
 }

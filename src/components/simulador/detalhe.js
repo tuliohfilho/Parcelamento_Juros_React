@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
+import NumberFormat from 'react-number-format';
+
 import { Container, Row, Col, Table } from 'react-bootstrap';
 
 
@@ -12,8 +14,30 @@ class Detalhe extends Component {
         return (
             <tr>
                 <td>{parcela.id}</td>
-                <td>{parcela.valorParcela}</td>
-                <td>{parcela.valorJuros}</td>
+                <td>
+                    <NumberFormat 
+                        prefix={'R$ '}
+                        decimalScale={2}
+                        displayType={'text'}
+                        allowNegative={false}
+                        decimalSeparator={','}
+                        thousandSeparator={'.'} 
+                        fixedDecimalScale={true}
+                        value={parcela.valorParcela} 
+                    />  
+                </td>
+                <td>
+                    <NumberFormat 
+                        prefix={'% '}
+                        decimalScale={4}
+                        displayType={'text'}
+                        allowNegative={false}
+                        decimalSeparator={','}
+                        thousandSeparator={'.'} 
+                        fixedDecimalScale={true}
+                        value={parcela.valorJuros} 
+                    />     
+                </td>
                 <td>{parcela.dataVencimento}</td>
             </tr>
         )
@@ -24,18 +48,59 @@ class Detalhe extends Component {
             <>
                 <Container>
                     <Row>
-                        <Col cols={{ sm: 12 }} className="text-center">
+                        <Col md={12} className="text-center">
                             <h1>Detalhe da Simulação</h1>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col cols={{ sm: 12 }} className="text-center">
-                            Valores Dos Campos Em Formato Texto
+                    <Row className="mt-5 text-center">
+                        <Col md={12} className="text-left"><h4>Dados</h4></Col>
+                        <Col md={3}>
+                            <b>Valor Total: </b><br />
+                            <NumberFormat 
+                                prefix={'R$ '}
+                                decimalScale={2}
+                                displayType={'text'}
+                                allowNegative={false}
+                                decimalSeparator={','}
+                                thousandSeparator={'.'} 
+                                fixedDecimalScale={true}
+                                value={this.props.simulacaoForm.valorTotal} 
+                            />
+                        </Col>
+                        <Col md={3}>
+                            <b>Valor de Juros: </b><br />
+                            <NumberFormat 
+                                prefix={'% '}
+                                decimalScale={4}
+                                displayType={'text'}
+                                allowNegative={false}
+                                decimalSeparator={','}
+                                thousandSeparator={'.'} 
+                                fixedDecimalScale={true}
+                                value={this.props.simulacaoForm.valorJuros} 
+                            />
+                        </Col>
+                        <Col md={3}>
+                            <b>Quantidade de Parcelas: </b><br />
+                            <NumberFormat
+                                prefix={'x '}
+                                decimalScale={2}
+                                displayType={'text'}
+                                allowNegative={false}
+                                decimalSeparator={','}
+                                thousandSeparator={'.'} 
+                                value={this.props.simulacaoForm.qtoParcelas} 
+                            />
+                        </Col>
+                        <Col md={3}>
+                            <b>Data da Compra: </b><br />
+                            {this.props.simulacaoForm.dataCompra}
                         </Col>
                     </Row>
-                    <Row>
-                        <Col cols={{ sm: 12 }} className="text-center">
-                        <Table striped bordered hover size="sm">
+                    <Row className="mt-5">
+                    <Col md={12}><h4>Parcelas</h4></Col>
+                        <Col md={12} className="text-center">
+                            <Table striped bordered hover size="sm">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -51,6 +116,24 @@ class Detalhe extends Component {
                                     })
                                 }
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <NumberFormat 
+                                            prefix={'R$ '}
+                                            decimalScale={2}
+                                            displayType={'text'}
+                                            allowNegative={false}
+                                            decimalSeparator={','}
+                                            thousandSeparator={'.'} 
+                                            fixedDecimalScale={true}
+                                            value={this.props.simulacao.valorTotal}
+                                        />
+                                    </td>
+                                    <td colSpan={2}></td>
+                                </tr>
+                            </tfoot>
                         </Table>
                         </Col>
                     </Row>
@@ -62,7 +145,8 @@ class Detalhe extends Component {
 
 
 const mapStateToProps = state => ({
-    simulacao: state.reducers.simulador.simulacao
+    simulacao: state.reducers.simulador.simulacao,
+    simulacaoForm: state.reducers.simulador.simulacaoForm
 });
 
 const mapDispatchToProps = dispatch =>

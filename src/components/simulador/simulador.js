@@ -10,7 +10,7 @@ import swal from 'sweetalert2';
 import InputMask from 'react-input-mask';
 import NumberFormat from 'react-number-format';
 
-import { simulador } from '../../actions/simulador';
+import { calcularSimulacao } from '../../actions/simulador';
 
 
 class Simulador extends Component {
@@ -19,10 +19,10 @@ class Simulador extends Component {
         super(props);
 
         this.state = {
-            valorTotal: 100.00,
-            valorJuros: 10.00,
+            valorTotal: 325.23,
+            valorJuros: 5.7525,
             qtoParcelas: 10,
-            dataCompra: '01/02/2001',
+            dataCompra: '01/01/2020',
             salvarSimulacao: false
         }
     }
@@ -31,7 +31,7 @@ class Simulador extends Component {
         const dadosValidos = this.validaDadosSimulador();
         
         if(dadosValidos)
-            this.props.simulador({...this.state});
+            this.props.calcularSimulacao({...this.state});
     }
 
     validaDadosSimulador = () => {
@@ -102,11 +102,18 @@ class Simulador extends Component {
             return false;
             
         const valores = dataCompra.split('/');
-        const dia = valores[0];
-        const mes = valores[1];
-        const ano = valores[2];
+        const dia = Number(valores[0]);
+        const mes = Number(valores[1]);
+        const ano = Number(valores[2]);
 
         if(dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 1)
+            return false;
+
+        if((mes === 2 && dia > 29) ||
+           (mes === 4 && dia > 30) ||
+           (mes === 6 && dia > 30) ||
+           (mes === 9 && dia > 30) ||
+           (mes === 11 && dia > 30))
             return false;
 
         return true;
@@ -160,8 +167,8 @@ class Simulador extends Component {
                                 <Form.Label column sm="12"><b>Valor do Juros</b></Form.Label>
                                 <Col sm="5">
                                     <NumberFormat 
-                                        prefix={'R$ '}
-                                        decimalScale={2}
+                                        prefix={'% '}
+                                        decimalScale={4}
                                         allowNegative={false}
                                         decimalSeparator={','}
                                         thousandSeparator={'.'} 
@@ -178,6 +185,7 @@ class Simulador extends Component {
                                 <Form.Label column sm="12"><b>Quantidade de Parcelas</b></Form.Label>
                                 <Col sm="5">
                                     <NumberFormat 
+                                        prefix={'x '}
                                         decimalScale={2}
                                         allowNegative={false}
                                         decimalSeparator={','}
@@ -194,14 +202,15 @@ class Simulador extends Component {
                                 <Form.Label column sm="12"><b>Data da Compra</b></Form.Label>
                                 <Col sm="5">
                                     <InputMask
-                                        onChange={(event) => this.setState({
-                                            dataCompra: event.target.value
-                                        }) }
                                         type='text'
                                         maskChar='_'
                                         mask={'99/99/9999'}
                                         alwaysShowMask={true}
+                                        defaultValue={this.state.dataCompra}
                                         className="text-center form-control form-control-lg"
+                                        onChange={(event) => this.setState({
+                                            dataCompra: event.target.value
+                                        }) }
                                     />
                                 </Col>
                             </Form.Group>
@@ -239,7 +248,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({
-        simulador
+        calcularSimulacao: calcularSimulacao
     }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Simulador);
