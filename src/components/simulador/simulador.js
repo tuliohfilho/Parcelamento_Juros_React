@@ -23,6 +23,9 @@ class Simulador extends Component {
             valorJuros: 5.7525,
             qtoParcelas: 10,
             dataCompra: '01/01/2020',
+            diaCompra: 1,
+            mesCompra: 1,
+            anoCompra: 2020,
             cpfComprador: undefined,
             salvarSimulacao: false
         }
@@ -33,6 +36,19 @@ class Simulador extends Component {
         
         if(dadosValidos)
             this.props.calcularSimulacao({...this.state});
+    }
+
+    onChangeDataCompra = (dataCompra) => {
+        const valores = dataCompra.split('/');
+        const dia = Number(valores[0]);
+        const mes = Number(valores[1]);
+        const ano = Number(valores[2]);
+
+        this.setState({
+            diaCompra: dia,
+            mesCompra: mes,
+            anoCompra: ano,
+        })
     }
 
     validaDadosSimulador = () => {
@@ -227,9 +243,7 @@ class Simulador extends Component {
                                         alwaysShowMask={true}
                                         defaultValue={this.state.dataCompra}
                                         className="text-center form-control form-control-lg"
-                                        onChange={(event) => this.setState({
-                                            dataCompra: event.target.value
-                                        }) }
+                                        onChange={(event) => this.onChangeDataCompra(event.target.value) }
                                     />
                                 </Col>
                             </Form.Group>

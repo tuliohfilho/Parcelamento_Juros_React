@@ -10,10 +10,10 @@ import { Container, Row, Col, Table } from 'react-bootstrap';
 
 class Detalhe extends Component {
     
-    renderParcela = (parcela) => {
+    renderParcela = (parcela, index) => {
         return (
             <tr>
-                <td>{parcela.id}</td>
+                <td>{index + 1}</td>
                 <td>
                     <NumberFormat 
                         prefix={'R$ '}
@@ -48,7 +48,7 @@ class Detalhe extends Component {
 
         return (
             parcelas.map((parcela, i) => {
-                return this.renderParcela(parcela);
+                return this.renderParcela(parcela, i);
             })
         );
     }

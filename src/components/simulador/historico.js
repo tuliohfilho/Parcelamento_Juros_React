@@ -71,7 +71,7 @@ class Index extends Component {
     renderSimulacao = (simulacao, index) => {
         return (
             <tr key={index}>
-                <td>{simulacao.id}</td>
+                <td>{index + 1}</td>
                 <td>
                     <NumberFormat 
                         prefix={'R$ '}
