@@ -186,7 +186,7 @@ class Index extends Component {
             <Container>
                 <Row>
                     <Col cols={{ sm: 12 }} className="text-center">
-                        <h1>Histórico de Parecelas/Juros</h1>
+                        <h1>Histórico de Parcelas/Juros</h1>
                     </Col>
                 </Row>
                 <Row className="text-center">

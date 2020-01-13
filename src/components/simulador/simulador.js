@@ -157,7 +157,7 @@ class Simulador extends Component {
                 <Row className="text-center">
                     <Col md={{ span: 8, offset: 2 }}>
                         <Alert variant={'info'}>
-                            <b>Preencha todos os campos pra simular</b>
+                            <b>Preencha todos os campos para simular</b>
                         </Alert>
                     </Col>
                 </Row>

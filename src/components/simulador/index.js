@@ -16,7 +16,7 @@ class Index extends Component {
                 <Container>
                     <Row>
                         <Col cols={{ sm: 12 }} className="text-center">
-                            <h1>Simulador de Parecelas/Juros</h1>
+                            <h1>Simulador de Parcelas/Juros</h1>
                         </Col>
                     </Row>
                     <Simulador />
